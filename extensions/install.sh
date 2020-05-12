@@ -6,7 +6,7 @@ echo
 echo "============================================"
 echo "Install extensions from   : install.sh"
 echo "PHP version               : php:7.4-fpm-alpine"
-echo "Extra Extensions          : pdo_mysql,mysqli,mbstring,gd,curl,opcache,redis,swoole,zip"
+echo "Extra Extensions          : pdo_mysql,pcntl,posix,mysqli,mbstring,gd,curl,opcache,redis,swoole,zip"
 echo "Multicore Compilation     : ${MC}"
 echo "Container package url     : mirrors.aliyun.com"
 echo "Work directory            : ${PWD}"
@@ -14,7 +14,7 @@ echo "============================================"
 echo
 
 
-export EXTENSIONS=",pdo_mysql,mysqli,mbstring,gd,curl,opcache,redis,swoole,zip"
+export EXTENSIONS=",pdo_mysql,pcntl,posix,mysqli,mbstring,gd,curl,opcache,redis,swoole,zip"
 
 
 #
@@ -73,6 +73,11 @@ fi
 if [[ -z "${EXTENSIONS##*,pcntl,*}" ]]; then
     echo "---------- Install pcntl ----------"
 	docker-php-ext-install ${MC} pcntl
+fi
+
+if [[ -z "${EXTENSIONS##*,posix,*}" ]]; then
+    echo "---------- Install posix ----------"
+	docker-php-ext-install ${MC} posix
 fi
 
 if [[ -z "${EXTENSIONS##*,mysqli,*}" ]]; then
