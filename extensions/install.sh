@@ -450,6 +450,10 @@ if [[ -z "${EXTENSIONS##*,xdebug,*}" ]]; then
 fi
 
 
+if [[ -z "${EXTENSIONS##*,inotify,*}" ]]; then
+    echo "---------- Install inotify ----------"
+    installExtensionFromTgz inotify-2.0.0
+fi
 
 
 if [[ -z "${EXTENSIONS##*,swoole,*}" ]]; then
@@ -476,14 +480,3 @@ if [[ -z "${EXTENSIONS##*,zip,*}" ]]; then
 	docker-php-ext-install ${MC} zip
 fi
 
-
-if [[ -z "${EXTENSIONS##*,inotify,*}" ]]; then
-    echo "---------- Install inotify ----------"
-    isPhpVersionGreaterOrEqual 7 0
-
-    if [[ "$?" = "1" ]]; then
-        installExtensionFromTgz inotify-2.0.0
-    else
-        installExtensionFromTgz inotify-2.0.0
-    fi
-fi
