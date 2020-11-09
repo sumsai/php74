@@ -36,8 +36,7 @@ ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 RUN curl -o /usr/bin/composer https://mirrors.aliyun.com/composer/composer.phar \
     && chmod +x /usr/bin/composer
 ENV COMPOSER_HOME=/tmp/composer
-#安装 inotify
-pecl install inotify
+
 #更新源，安装yasm ffmpeg
 RUN apk update
 RUN apk add yasm && apk add ffmpeg
