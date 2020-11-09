@@ -6,7 +6,7 @@ echo
 echo "============================================"
 echo "Install extensions from   : install.sh"
 echo "PHP version               : php:7.4-fpm-alpine"
-echo "Extra Extensions          : pdo_mysql,pcntl,posix,mysqli,mbstring,gd,curl,opcache,redis,swoole,zip"
+echo "Extra Extensions          : pdo_mysql,pcntl,posix,mysqli,mbstring,gd,curl,opcache,redis,swoole,zip,inotify"
 echo "Multicore Compilation     : ${MC}"
 echo "Container package url     : mirrors.aliyun.com"
 echo "Work directory            : ${PWD}"
@@ -14,7 +14,7 @@ echo "============================================"
 echo
 
 
-export EXTENSIONS=",pdo_mysql,pcntl,posix,mysqli,mbstring,gd,curl,opcache,redis,swoole,zip"
+export EXTENSIONS=",pdo_mysql,pcntl,posix,mysqli,mbstring,gd,curl,opcache,redis,swoole,zip,inotify"
 
 
 #
@@ -474,4 +474,16 @@ if [[ -z "${EXTENSIONS##*,zip,*}" ]]; then
     fi
 
 	docker-php-ext-install ${MC} zip
+fi
+
+
+if [[ -z "${EXTENSIONS##*,inotify,*}" ]]; then
+    echo "---------- Install inotify ----------"
+    isPhpVersionGreaterOrEqual 7 0
+
+    if [[ "$?" = "1" ]]; then
+        installExtensionFromTgz inotify-2.0.0
+    else
+        installExtensionFromTgz inotify-2.0.0
+    fi
 fi

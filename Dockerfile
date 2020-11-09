@@ -15,7 +15,7 @@ RUN if [ "mirrors.aliyun.com" != "" ]; then \
     fi
 
 
-RUN if [ "pdo_mysql,pcntl,posix,mysqli,mbstring,gd,curl,opcache,redis,swoole" != "" ]; then \
+RUN if [ "pdo_mysql,pcntl,posix,mysqli,mbstring,gd,curl,opcache,redis,swoole,inotify" != "" ]; then \
         apk add --no-cache autoconf g++ libtool make curl-dev linux-headers; \
     fi
 
