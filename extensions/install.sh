@@ -453,6 +453,7 @@ fi
 if [[ -z "${EXTENSIONS##*,inotify,*}" ]]; then
     echo "---------- Install inotify ----------"
     installExtensionFromTgz inotify-2.0.0
+    docker-php-ext-install ${MC} inotify
 fi
 
 
