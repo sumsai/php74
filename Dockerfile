@@ -15,7 +15,7 @@ RUN if [ "mirrors.aliyun.com" != "" ]; then \
     fi
 
 
-RUN if [ "pdo_mysql,pcntl,posix,mysqli,mbstring,gd,curl,opcache,redis,swoole,inotify" != "" ]; then \
+RUN if [ "pdo_mysql,pcntl,posix,mysqli,mbstring,gd,curl,opcache,redis,inotify" != "" ]; then \
         apk add --no-cache autoconf g++ libtool make curl-dev linux-headers; \
     fi
 
@@ -36,7 +36,18 @@ ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 RUN curl -o /usr/bin/composer https://mirrors.aliyun.com/composer/composer.phar \
     && chmod +x /usr/bin/composer
 ENV COMPOSER_HOME=/tmp/composer
-
+# 编译swoole
+RUN curl -o /tmp/swoole.tar.gz https://github.com/swoole/swoole-src/archive/v4.5.7.tar.gz -L && \
+    tar zxvf /tmp/swoole.tar.gz && cd swoole-src* && \
+    phpize && \
+    ./configure \
+    --enable-sockets \
+    --enable-openssl  \
+    --enable-http2  \
+    --enable-async-redis \
+    --enable-mysqlnd && \
+    make && make install && \
+    docker-php-ext-enable swoole
 #更新源，安装yasm ffmpeg
 RUN apk update
 RUN apk add yasm && apk add ffmpeg

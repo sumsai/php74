@@ -6,7 +6,7 @@ echo
 echo "============================================"
 echo "Install extensions from   : install.sh"
 echo "PHP version               : php:7.4-fpm-alpine"
-echo "Extra Extensions          : pdo_mysql,pcntl,posix,mysqli,mbstring,gd,curl,opcache,redis,swoole,zip,inotify"
+echo "Extra Extensions          : pdo_mysql,pcntl,posix,mysqli,mbstring,gd,curl,opcache,redis,zip,inotify"
 echo "Multicore Compilation     : ${MC}"
 echo "Container package url     : mirrors.aliyun.com"
 echo "Work directory            : ${PWD}"
@@ -14,7 +14,7 @@ echo "============================================"
 echo
 
 
-export EXTENSIONS=",pdo_mysql,pcntl,posix,mysqli,mbstring,gd,curl,opcache,redis,swoole,zip,inotify"
+export EXTENSIONS=",pdo_mysql,pcntl,posix,mysqli,mbstring,gd,curl,opcache,redis,zip,inotify"
 
 
 #
@@ -457,16 +457,6 @@ if [[ -z "${EXTENSIONS##*,inotify,*}" ]]; then
 fi
 
 
-if [[ -z "${EXTENSIONS##*,swoole,*}" ]]; then
-    echo "---------- Install swoole ----------"
-    isPhpVersionGreaterOrEqual 7 0
-
-    if [[ "$?" = "1" ]]; then
-        installExtensionFromTgz swoole-4.5.7
-    else
-        installExtensionFromTgz swoole-4.5.7
-    fi
-fi
 
 if [[ -z "${EXTENSIONS##*,zip,*}" ]]; then
     echo "---------- Install zip ----------"
