@@ -459,7 +459,7 @@ fi
 
 if [[ -z "${EXTENSIONS##*,swoole,*}" ]]; then
     echo "---------- Install swoole ----------"
-    apk add --no-cache add autoconf gcc g++ make openssl openssl-dev
+    apk add --no-cache  autoconf gcc g++ make openssl openssl-dev
     isPhpVersionGreaterOrEqual 7 0
 
     if [[ "$?" = "1" ]]; then
